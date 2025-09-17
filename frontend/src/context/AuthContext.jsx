@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
 
-  axios.defaults.baseURL = 'https://mern-polls-app.onrender.com';
+  axios.defaults.baseURL = 'https://mern-polls-app.onrender.com/api';
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
