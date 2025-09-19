@@ -15,7 +15,18 @@ const app = express();
 app.use(express.json());
 
 // Enable CORS
-app.use(cors());
+const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:5173'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or Postman)
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('The CORS policy for this site does not allow access.'));
+    }
+  }
+}));
 
 // Mount router
 app.use('/api/auth', require('./routes/authRoutes'));
